@@ -1,15 +1,3 @@
-<?php
-session_start();
-echo session_id();
-if (isset($_SESSION['counter'])) {
-    # code...
-    $_SESSION['counter']++;
-} else {
-    $_SESSION['counter'] = 1;
-}
-?>
-
-
 <!doctype html>
 <html lang="en">
 
@@ -21,7 +9,7 @@ if (isset($_SESSION['counter'])) {
 </head>
 
 <body>
-    You have Visited page <?php echo $_SESSION['counter'] ?> time
-</body>
-
-</html>
+    <header>
+        <a href="index.php">Home</a>
+        <a href="about.php">About</a>
+    </header>

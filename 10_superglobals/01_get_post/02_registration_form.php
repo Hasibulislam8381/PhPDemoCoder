@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = post_data('password');
     $password_confirm = post_data('password_confirm');
     $cv_url = post_data('cv_url');
-    echo '<pre>';
-    var_dump($username, $email, $password, $password_confirm, $cv_url);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($username, $email, $password, $password_confirm, $cv_url);
+    // echo '</pre>';
     if (!$username) {
         $errors['username'] = REQUIRED_FIELD_ERROR;
     } elseif (strlen($username) < 6 || strlen($username) > 16) {
@@ -40,8 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-    if (!$cv_url) {
-        $errors['cv_url'] = REQUIRED_FIELD_ERROR;
+    if ($cv_url && !filter_var($cv_url, FILTER_VALIDATE_URL)) {
+        $errors['cv_url'] = 'Please Put a valid link';
+    }
+    if (empty($errors)) {
+        # code...
+        echo "Everything is good" . '<br>';
     }
 }
 function post_data($field)
@@ -109,7 +113,10 @@ function post_data($field)
         <div class=" form-group">
             <div class="form-group">
                 <label>Your CV link</label>
-                <input type="text" class="form-control" name="cv_url" value="<?php echo $email ?>" placeholder="https://www.example.com/my-cv" />
+                <input type="text" class="form-control <?php echo isset($errors['cv_url']) ? 'is-invalid' : ''; ?> " name="cv_url" value="<?php echo $cv_url ?>" placeholder="https://www.example.com/my-cv" />
+                <div class="invalid-feedback">
+                    <?php echo $errors['cv_url'] ?? ''; ?>
+                </div>
             </div>
         </div>
 

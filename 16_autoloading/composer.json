@@ -1,0 +1,9 @@
+{
+    "name": "hasibul75/16_autoloading",
+    "autoload": {
+        "psr-4": {
+            "Hasibul75\\16Autoloading\\": "src/"
+        }
+    },
+    "require": {}
+}
